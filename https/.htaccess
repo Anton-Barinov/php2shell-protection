@@ -2,5 +2,5 @@
 # WARNING: This also blocks legitimate multipart forms and uploads.
 RewriteEngine On
 RewriteCond %{REQUEST_METHOD} ^POST$ [NC]
-RewriteCond %{HTTP:Content-Type} ^multipart/form-data(?:[;\s]|$) [NC]
+RewriteCond %{HTTP:Content-Type} ^[[:space:]]*multipart/form-data([;,[:space:]]|$) [NC]
 RewriteRule ^ - [F,L]

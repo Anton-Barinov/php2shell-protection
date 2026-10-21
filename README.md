@@ -107,6 +107,8 @@ A test result of ordinary POST **200 / PHP executed** and multipart POST **403 /
    - **Other status, redirect, or network error**: investigate server routing and access controls before interpreting the result.
 4. **Remove `testblock.php` after testing.**
 
+This browser test sends a standards-compliant multipart request; it does **not** test the non-standard comma-separated Content-Type variant. That variant requires a separate controlled HTTP client test.
+
 This test only checks one browser-originated POST to the deployed script. A 403 alone cannot prove *which* server rule rejected it or establish protection against every exploit path. Do not test it merely by visiting `?probe=1` directly: that sends a GET request, not the multipart POST used by the form.
 
 ## Example .htaccess
@@ -114,9 +116,11 @@ This test only checks one browser-originated POST to the deployed script. A 403 
 ```apache
 RewriteEngine On
 RewriteCond %{REQUEST_METHOD} ^POST$ [NC]
-RewriteCond %{HTTP:Content-Type} ^multipart/form-data(?:[;\s]|$) [NC]
+RewriteCond %{HTTP:Content-Type} ^[[:space:]]*multipart/form-data([;,[:space:]]|$) [NC]
 RewriteRule ^ - [F,L]
 ```
+
+The revised header check also rejects non-standard comma-separated variants such as `Content-Type: multipart/form-data, boundary=example`, as well as standard semicolon-separated parameters. Commas are **not valid multipart parameter separators** under MIME syntax; rejecting this variant is defensive hardening, not evidence that PHP accepts it as multipart. Leading spaces and tabs are tolerated in the match. This is a header-based filter, not a complete HTTP request normalization or parser-discrepancy defense. Test any reverse proxy, alternate PHP routes, and edge cases in your own environment.
 
 The rule blocks **all** matching multipart POST requests, including forms with no attached file. It does not block ordinary URL-encoded POSTs. If the site needs uploads, do not deploy this rule globally without scoping exceptions and testing them.
 
@@ -141,3 +145,5 @@ This project is distributed under the [MIT License](LICENSE).
 **Felipe Daragon, Syhunt** — project author.
 
 **Andrew Dorman**, **Nicolas Krassas** and **hash_s3c** — info contributions on X.
+
+**Neil Smith** — suggested the additional Content-Type matching hardening for nonstandard comma-separated multipart header variants.
