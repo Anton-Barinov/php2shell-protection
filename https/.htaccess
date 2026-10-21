@@ -1,0 +1,6 @@
+# Reject multipart/form-data POST requests before PHP execution.
+# WARNING: This also blocks legitimate multipart forms and uploads.
+RewriteEngine On
+RewriteCond %{REQUEST_METHOD} ^POST$ [NC]
+RewriteCond %{HTTP:Content-Type} ^multipart/form-data(?:[;\s]|$) [NC]
+RewriteRule ^ - [F,L]
