@@ -140,4 +140,4 @@ This project is distributed under the [MIT License](LICENSE).
 
 **Felipe Daragon, Syhunt** — project author.
 
-**Andrew Dorman** ([@hash_s3c](https://x.com/hash_s3c/)) — contributions.
+**Andrew Dorman**, **Nicolas Krassas** and **hash_s3c** — info contributions on X.
