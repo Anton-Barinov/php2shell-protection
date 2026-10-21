@@ -20,7 +20,7 @@ Upgrade to a vendor-patched build, including these upstream fixed releases:
 - **PHP 8.4.27**
 - **PHP 8.5.12**
 
-PHP 8.1 and earlier are out of upstream support. Some Linux distributions and LTS vendors may offer backported fixes. The PHP security team also supplied minimal source backports for PHP **7.4, 8.0, and 8.1**. **PHP 5.2 has no upstream patch listed**; move to a maintained runtime or seek an appropriate vendor-supported migration plan. Do not assume that an older runtime is safe because a particular newer feature is absent.
+PHP 8.1 and earlier are out of upstream support. Some Linux distributions and LTS vendors may offer backported fixes. The PHP security team also supplied minimal source backports for PHP **7.4, 8.0, and 8.1**. **PHP 5.2 has no upstream patch listed**; move to a maintained runtime or seek an appropriate vendor-supported migration plan. Do not assume that an older runtime is safe because a particular newer feature is absent. (For legacy environments where PHP 5.6, 7.4, 8.0, or 8.1 cannot be upgraded immediately, community-packaged source backports and isolated build scripts are available at [Anton-Barinov/php2shell-patches](https://github.com/Anton-Barinov/php2shell-patches)).
 
 ### Temporary measures recommended by the PHP security team
 
